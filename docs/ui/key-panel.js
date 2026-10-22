@@ -40,7 +40,7 @@ export function initKeyPanel({ providers, onReady, onCleared }) {
     value.value = "";
     if (!key) { state.textContent = "키를 먼저 넣어 주세요."; value.focus(); return; }
     provider = createByokProvider({ entry, apiKey: key, model: model.value });
-    state.textContent = `키가 이 탭의 메모리에 있어요(${entry.label}). 지우려면 '키 지우기'를 누르세요.`;
+    state.textContent = `${entry.label} 키가 이 탭의 메모리에 있어요. 지우려면 '키 지우기'를 누르세요.`;
     onReady(provider);
   });
   document.getElementById("key-clear").addEventListener("click", clear);
