@@ -1,0 +1,9 @@
+{
+  "schema": "kiosk-qr.profiles/v1",
+  "note": "기능 코드 묶음이다. 장애 이름·진단·신원은 담지 않는다.",
+  "profiles": [
+    { "id": "p-large-voice", "label": "큰 글씨·음성", "text_scale": 2, "contrast": "high", "plain_language": false, "step_split": false, "voice": true, "slow_pace": false, "touch_target": "large", "language": "ko" },
+    { "id": "p-easy-one", "label": "쉬운 말·한 번에 하나", "text_scale": 1.5, "contrast": "normal", "plain_language": true, "step_split": true, "voice": false, "slow_pace": true, "touch_target": "normal", "language": "ko_easy" },
+    { "id": "p-big-safe", "label": "큰 버튼·실수 방지", "text_scale": 1.5, "contrast": "normal", "plain_language": false, "step_split": false, "voice": false, "slow_pace": true, "touch_target": "large", "language": "ko" }
+  ]
+}

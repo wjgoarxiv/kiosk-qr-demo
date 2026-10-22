@@ -1,0 +1,159 @@
+{
+ "raw": {
+  "screen_id": "restaurant",
+  "profile_id": "p-big-safe",
+  "style": {
+   "text_scale": 1.5,
+   "contrast": "normal",
+   "touch_target_px": 64,
+   "scroll_hint": true
+  },
+  "items": [
+   {
+    "id": "r-kimchi",
+    "label": "김치찌개",
+    "hint": "돼지고기와 묵은지를 넣고 끓인 찌개",
+    "price_krw": 9000,
+    "options": [
+     {
+      "id": "r-kimchi.rice",
+      "label": "공깃밥 추가",
+      "price_delta_krw": 1000
+     },
+     {
+      "id": "r-kimchi.mild",
+      "label": "순한 맛",
+      "price_delta_krw": 0
+     }
+    ]
+   },
+   {
+    "id": "r-doenjang",
+    "label": "된장찌개",
+    "hint": "두부와 채소를 넣은 된장 찌개",
+    "price_krw": 8500,
+    "options": [
+     {
+      "id": "r-doenjang.rice",
+      "label": "공깃밥 추가",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "r-jeyuk",
+    "label": "제육볶음",
+    "hint": "매콤한 양념으로 볶은 돼지고기",
+    "price_krw": 11000,
+    "options": [
+     {
+      "id": "r-jeyuk.large",
+      "label": "곱빼기",
+      "price_delta_krw": 2000
+     }
+    ]
+   },
+   {
+    "id": "r-bibim",
+    "label": "비빔밥",
+    "hint": "나물과 고추장을 넣고 비비는 밥",
+    "price_krw": 9500,
+    "options": [
+     {
+      "id": "r-bibim.egg",
+      "label": "계란 프라이 추가",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "r-cola",
+    "label": "콜라",
+    "hint": "캔에 담긴 콜라",
+    "price_krw": 2000,
+    "options": []
+   }
+  ],
+  "pages": [
+   {
+    "id": "select-1",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "천천히 메뉴를 골라 주세요.",
+    "item_ids": [
+     "r-kimchi",
+     "r-doenjang",
+     "r-jeyuk",
+     "r-bibim",
+     "r-cola"
+    ]
+   },
+   {
+    "id": "cart-1",
+    "kind": "cart",
+    "title": "담은 메뉴 확인",
+    "lead": "메뉴와 옵션, 수량을 확인해 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "confirm-1",
+    "kind": "confirm",
+    "title": "원래 화면과 비교",
+    "lead": "주문 내용이 맞는지 확인해 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "pay-1",
+    "kind": "pay",
+    "title": "결제",
+    "lead": "모의 결제입니다. 확인 후 진행해 주세요.",
+    "item_ids": []
+   }
+  ],
+  "cart": {
+   "lines": [
+    {
+     "item_id": "r-kimchi",
+     "option_ids": [
+      "r-kimchi.rice"
+     ],
+     "qty": 2,
+     "line_total_krw": 20000
+    },
+    {
+     "item_id": "r-cola",
+     "option_ids": [],
+     "qty": 2,
+     "line_total_krw": 4000
+    }
+   ],
+   "total_krw": 24000
+  },
+  "confirm": {
+   "lines": [
+    {
+     "item_id": "r-kimchi",
+     "original_name": "김치찌개",
+     "amount_krw": 20000
+    },
+    {
+     "item_id": "r-cola",
+     "original_name": "콜라",
+     "amount_krw": 4000
+    }
+   ],
+   "total_krw": 24000,
+   "original_check_required": true
+  },
+  "staff_call": {
+   "label": "직원 부르기"
+  }
+ },
+ "meta": {
+  "model": "gpt-6.1-sol",
+  "date": "2026-10-20",
+  "prompt_sha256": "5a7e360e8c02489a15fa0a7ca403f741c0c706e1b3779c8caed243bedaef5ce2",
+  "retries": 0,
+  "verdict": "validator-pass"
+ }
+}

@@ -1,0 +1,133 @@
+{
+ "raw": {
+  "screen_id": "clinic",
+  "profile_id": "p-big-safe",
+  "style": {
+   "text_scale": 1.5,
+   "contrast": "normal",
+   "touch_target_px": 64,
+   "scroll_hint": true
+  },
+  "items": [
+   {
+    "id": "h-internal",
+    "label": "내과 진료 접수",
+    "hint": "내과 의사를 만나기 위한 접수입니다.",
+    "price_krw": 3000,
+    "options": [
+     {
+      "id": "h-internal.cert",
+      "label": "진료확인서 함께 받기",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "h-ortho",
+    "label": "정형외과 진료 접수",
+    "hint": "뼈와 관절 진료를 위한 접수입니다.",
+    "price_krw": 3500,
+    "options": [
+     {
+      "id": "h-ortho.cert",
+      "label": "진료확인서 함께 받기",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "h-ent",
+    "label": "이비인후과 진료 접수",
+    "hint": "귀, 코, 목 진료를 위한 접수입니다.",
+    "price_krw": 3000,
+    "options": []
+   },
+   {
+    "id": "h-cert",
+    "label": "진료확인서만 발급",
+    "hint": "진료 없이 진료확인서를 받습니다.",
+    "price_krw": 1000,
+    "options": []
+   }
+  ],
+  "pages": [
+   {
+    "id": "select-1",
+    "kind": "select",
+    "title": "접수 선택",
+    "lead": "천천히 살펴보고 눌러 주세요.",
+    "item_ids": [
+     "h-internal",
+     "h-ortho",
+     "h-ent",
+     "h-cert"
+    ]
+   },
+   {
+    "id": "options-1",
+    "kind": "options",
+    "title": "확인서 선택",
+    "lead": "함께 받을지 골라 주세요.",
+    "item_ids": [
+     "h-internal",
+     "h-ortho"
+    ]
+   },
+   {
+    "id": "cart-1",
+    "kind": "cart",
+    "title": "선택 내용 확인",
+    "lead": "접수와 확인서 선택을 살펴보세요.",
+    "item_ids": []
+   },
+   {
+    "id": "confirm-1",
+    "kind": "confirm",
+    "title": "원래 화면과 비교",
+    "lead": "원래 이름과 선택 내용을 확인하세요.",
+    "item_ids": []
+   },
+   {
+    "id": "pay-1",
+    "kind": "pay",
+    "title": "결제",
+    "lead": "내용을 확인한 뒤 진행하세요.",
+    "item_ids": []
+   }
+  ],
+  "cart": {
+   "lines": [
+    {
+     "item_id": "h-internal",
+     "option_ids": [
+      "h-internal.cert"
+     ],
+     "qty": 1,
+     "line_total_krw": 4000
+    }
+   ],
+   "total_krw": 4000
+  },
+  "confirm": {
+   "lines": [
+    {
+     "item_id": "h-internal",
+     "original_name": "내과 진료 접수",
+     "amount_krw": 4000
+    }
+   ],
+   "total_krw": 4000,
+   "original_check_required": true
+  },
+  "staff_call": {
+   "label": "직원 부르기"
+  }
+ },
+ "meta": {
+  "model": "gpt-6.1-sol",
+  "date": "2026-10-20",
+  "prompt_sha256": "e8b944249575ddeaf07c43045ffc8cc4508d1c0d5c103217b1c5d7d435e3a6f1",
+  "retries": 0,
+  "verdict": "validator-pass"
+ }
+}

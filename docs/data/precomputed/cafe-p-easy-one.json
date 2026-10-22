@@ -1,0 +1,198 @@
+{
+ "raw": {
+  "screen_id": "cafe",
+  "profile_id": "p-easy-one",
+  "style": {
+   "text_scale": 1.5,
+   "contrast": "normal",
+   "touch_target_px": 44,
+   "scroll_hint": false
+  },
+  "items": [
+   {
+    "id": "c-americano",
+    "label": "아메리카노",
+    "hint": "물과 진한 커피를 섞은 음료예요.",
+    "price_krw": 4500,
+    "options": [
+     {
+      "id": "c-americano.size-l",
+      "label": "라지 사이즈 (큰 컵)",
+      "price_delta_krw": 500
+     },
+     {
+      "id": "c-americano.shot",
+      "label": "샷 추가 (더 진하게)",
+      "price_delta_krw": 500
+     }
+    ]
+   },
+   {
+    "id": "c-latte",
+    "label": "카페라떼",
+    "hint": "따뜻한 우유를 넣은 커피예요.",
+    "price_krw": 5000,
+    "options": [
+     {
+      "id": "c-latte.oat",
+      "label": "오트밀크로 변경 (귀리 우유로 바꾸기)",
+      "price_delta_krw": 700
+     },
+     {
+      "id": "c-latte.size-l",
+      "label": "라지 사이즈 (큰 컵)",
+      "price_delta_krw": 500
+     }
+    ]
+   },
+   {
+    "id": "c-yuja",
+    "label": "유자차",
+    "hint": "달콤한 유자를 넣은 따뜻한 차예요.",
+    "price_krw": 5500,
+    "options": [
+     {
+      "id": "c-yuja.iced",
+      "label": "차갑게",
+      "price_delta_krw": 0
+     }
+    ]
+   },
+   {
+    "id": "c-scone",
+    "label": "플레인 스콘",
+    "hint": "버터 향이 나는 구운 과자예요.",
+    "price_krw": 3800,
+    "options": [
+     {
+      "id": "c-scone.warm",
+      "label": "데워서 (따뜻하게)",
+      "price_delta_krw": 0
+     }
+    ]
+   },
+   {
+    "id": "c-cake",
+    "label": "조각 케이크",
+    "hint": "오늘 준비한 케이크예요.",
+    "price_krw": 6500,
+    "options": []
+   }
+  ],
+  "pages": [
+   {
+    "id": "select-1",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "원하는 메뉴를 골라 주세요.",
+    "item_ids": [
+     "c-americano"
+    ]
+   },
+   {
+    "id": "select-2",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "원하는 메뉴를 골라 주세요.",
+    "item_ids": [
+     "c-latte"
+    ]
+   },
+   {
+    "id": "select-3",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "원하는 메뉴를 골라 주세요.",
+    "item_ids": [
+     "c-yuja"
+    ]
+   },
+   {
+    "id": "select-4",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "원하는 메뉴를 골라 주세요.",
+    "item_ids": [
+     "c-scone"
+    ]
+   },
+   {
+    "id": "select-5",
+    "kind": "select",
+    "title": "메뉴 고르기",
+    "lead": "원하는 메뉴를 골라 주세요.",
+    "item_ids": [
+     "c-cake"
+    ]
+   },
+   {
+    "id": "cart-1",
+    "kind": "cart",
+    "title": "담은 메뉴",
+    "lead": "고른 메뉴가 맞는지 봐 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "confirm-1",
+    "kind": "confirm",
+    "title": "주문 확인",
+    "lead": "원래 화면과 비교해 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "pay-1",
+    "kind": "pay",
+    "title": "결제하기",
+    "lead": "결제 연습 화면이에요.",
+    "item_ids": []
+   }
+  ],
+  "cart": {
+   "lines": [
+    {
+     "item_id": "c-americano",
+     "option_ids": [
+      "c-americano.size-l"
+     ],
+     "qty": 1,
+     "line_total_krw": 5000
+    },
+    {
+     "item_id": "c-scone",
+     "option_ids": [
+      "c-scone.warm"
+     ],
+     "qty": 2,
+     "line_total_krw": 7600
+    }
+   ],
+   "total_krw": 12600
+  },
+  "confirm": {
+   "lines": [
+    {
+     "item_id": "c-americano",
+     "original_name": "아메리카노",
+     "amount_krw": 5000
+    },
+    {
+     "item_id": "c-scone",
+     "original_name": "플레인 스콘",
+     "amount_krw": 7600
+    }
+   ],
+   "total_krw": 12600,
+   "original_check_required": true
+  },
+  "staff_call": {
+   "label": "직원 부르기"
+  }
+ },
+ "meta": {
+  "model": "gpt-6.1-sol",
+  "date": "2026-10-20",
+  "prompt_sha256": "92b9d869a2a62b80c0248dd228c07ba8772ca1170ce6897e24bacc59dd657ef0",
+  "retries": 0,
+  "verdict": "validator-pass"
+ }
+}

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://generativelanguage.googleapis.com https://api.groq.com https://openrouter.ai https://api.anthropic.com https://api.openai.com; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="키오스크가 어려운 분을 위해, QR을 폰으로 찍으면 같은 주문 화면이 큰 글씨와 쉬운 말로 바뀝니다. AI가 설명을 풀어 주고 가격과 메뉴는 그대로 지킵니다.">
+<title>내 방식 QR</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="ui/style.css">
+<script type="module" src="ui/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#stage">본문으로 건너뛰기</a>
+
+<main id="stage" class="layout" tabindex="-1">
+<header class="hero">
+  <p class="brand"><canvas id="pixel-cup" width="72" height="72" aria-hidden="true"></canvas><span class="brand-name">내 방식 QR</span></p>
+  <p class="for">어르신과, 복잡한 화면이 어려운 모든 분을 위해</p>
+  <h1>키오스크 앞에서<br>막막했던 적 있으세요?</h1>
+  <p class="lede">QR을 폰으로 한 번 찍으면, <strong>같은 주문 화면이 크고 쉽게</strong> 바뀝니다. AI가 어려운 메뉴 설명을 쉬운 말로 풀어 주고, 가격과 메뉴는 그대로 지켜요.</p>
+  <ol class="steps" aria-label="이렇게 써요">
+    <li><b>1</b><span>키오스크의 QR을<br>폰으로 찍어요</span></li>
+    <li><b>2</b><span>내 폰에 같은 주문이<br>나에게 맞게 바뀌어요</span></li>
+    <li><b>3</b><span>천천히 주문하고<br>결제 전에 다시 확인해요</span></li>
+  </ol>
+</header>
+
+<section class="device kiosk" aria-labelledby="kiosk-h">
+  <h2 id="kiosk-h">키오스크 <span class="tag-before">지금 화면</span></h2>
+  <ul class="pains" aria-label="어려운 점">
+    <li>작은 글씨</li><li>영어 용어</li><li>제한 시간</li><li>한 화면에 너무 많음</li>
+  </ul>
+  <div id="kiosk-screen" class="kiosk-screen"></div>
+  <div class="qr-box">
+    <canvas id="qr" width="168" height="168" role="img" aria-label="휴대폰으로 찍는 QR 그림"></canvas>
+    <div class="qr-side">
+      <p class="qr-caption">이 QR에는 이름·나이·건강 정보가 없어요. 화면 번호와 '내 방식' 코드만 들어 있어요.</p>
+      <button id="scan" type="button" class="primary">QR 찍어 보기</button>
+    </div>
+  </div>
+</section>
+
+<section class="controls" aria-label="체험 설정">
+  <fieldset id="pick-profile" class="cards">
+    <legend>나는 이래요 <span class="legend-note">골라 보세요. 폰 화면이 바로 바뀝니다.</span></legend>
+    <div class="seg"></div>
+  </fieldset>
+  <fieldset id="pick-spec">
+    <legend>어디서 주문할까요</legend>
+    <div class="seg"></div>
+  </fieldset>
+</section>
+
+<section class="device phone" aria-labelledby="phone-h">
+  <h2 id="phone-h">내 폰 <span class="tag-after">내 방식으로 바뀐 화면</span></h2>
+  <p id="status" class="status" role="status" aria-live="polite"></p>
+  <button id="voice-btn" type="button" hidden aria-pressed="false">소리로 듣기</button>
+  <div id="phone-screen" class="phone-screen" role="group" aria-label="변환된 휴대폰 화면"></div>
+</section>
+
+<section class="panel safe" aria-labelledby="safe-h">
+  <h2 id="safe-h">AI가 가격을 바꾸면 어떻게 되나요?</h2>
+  <p>AI가 만든 화면은 <strong>키오스크와 가격·메뉴가 같은지 검사한 뒤에만</strong> 보여 드려요. 다르면 AI 화면은 버리고 기본 화면을 보여 줍니다.</p>
+  <p class="hint">직접 해 보세요. 일부러 틀리게 만든 화면을 같은 검사에 넣어 봅니다.</p>
+  <div class="tamper-buttons">
+    <button type="button" data-tamper="price">가격을 바꿔 보기</button>
+    <button type="button" data-tamper="free">공짜 메뉴 끼워 보기</button>
+    <button type="button" data-tamper="inject">엉뚱한 지시 넣어 보기</button>
+  </div>
+  <div id="tamper-result" class="tamper-result" role="status" aria-live="polite"></div>
+</section>
+
+<details id="dev" class="panel dev">
+  <summary>시연 설정과 확인 기록 (심사용)</summary>
+  <div class="dev-body">
+    <p class="hint">이름·가격·수량·합계·원래 화면 확인만 검증합니다. AI가 쓴 설명 문장의 뜻까지는 검증하지 못합니다.</p>
+    <fieldset id="pick-mode">
+      <legend>변환 방식</legend>
+      <div class="seg"></div>
+    </fieldset>
+    <p id="qr-code" class="hint"></p>
+    <h3 id="log-h">확인 기록</h3>
+    <div id="log-body"></div>
+    <section class="keypanel" id="key-panel" aria-labelledby="key-h" hidden>
+      <h3 id="key-h">내 키로 실시간 변환</h3>
+      <form id="key-form" autocomplete="off">
+        <label for="key-provider">공급자</label>
+        <select id="key-provider"></select>
+        <label for="key-value">API 키</label>
+        <input id="key-value" type="password" spellcheck="false" autocomplete="new-password" autocapitalize="off" data-1p-ignore data-lpignore="true" data-bwignore>
+        <label for="key-model">모델 이름</label>
+        <input id="key-model" type="text" spellcheck="false" autocomplete="off">
+        <div class="key-actions">
+          <button type="submit" class="primary">이 키로 변환하기</button>
+          <button type="button" id="key-clear">키 지우기</button>
+        </div>
+      </form>
+      <p class="hint">이 앱은 키를 저장하지 않고 고른 공급자 외에는 보내지 않습니다. 키는 이 탭의 메모리에만 있고 탭을 닫으면 사라집니다. 공급자에게는 화면 항목의 이름·가격과 기능 코드가 전달됩니다. 로그인(OAuth)은 지원하지 않습니다.</p>
+      <p id="key-state" class="hint" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+</details>
+</main>
+
+<footer class="foot">
+  <p>모든 가게·메뉴·금액은 시연용 합성 값입니다. 장애 이름이나 진단은 입력하지 않고, 기능 코드(글씨 크기, 쉬운 말 등)만 씁니다. 실제 이용자 효과는 측정하지 않았습니다.</p>
+  <p>"소리로 듣기"의 목소리는 AI로 만든 합성 음성입니다(OmniVoice, Han Zhu 외 · k2-fsa, VoiceStudio로 실행).</p>
+  <p lang="en">Built with Higgs Materials licensed from Boson AI USA, Inc., Copyright Boson AI USA, Inc., All Rights Reserved and Meta Llama 3 licensed under the Meta Llama 3 Community License, Copyright Meta Platforms, Inc., All Right Reserved</p>
+  <p>QR 인코더 MIT(Kazuhiko Arase) · 글꼴 Pretendard(SIL OFL).</p>
+</footer>
+</body>
+</html>

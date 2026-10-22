@@ -1,0 +1,21 @@
+{
+  "id": "restaurant",
+  "industry": "restaurant",
+  "title": "한끼 식당 테이블 주문",
+  "items": [
+    { "id": "r-kimchi", "name": "김치찌개", "price_krw": 9000, "description": "돼지고기와 묵은지를 넣고 끓인 찌개",
+      "options": [ { "id": "r-kimchi.rice", "name": "공깃밥 추가", "price_delta_krw": 1000 }, { "id": "r-kimchi.mild", "name": "순한 맛", "price_delta_krw": 0 } ] },
+    { "id": "r-doenjang", "name": "된장찌개", "price_krw": 8500, "description": "두부와 채소를 넣은 된장 찌개",
+      "options": [ { "id": "r-doenjang.rice", "name": "공깃밥 추가", "price_delta_krw": 1000 } ] },
+    { "id": "r-jeyuk", "name": "제육볶음", "price_krw": 11000, "description": "매콤한 양념으로 볶은 돼지고기",
+      "options": [ { "id": "r-jeyuk.large", "name": "곱빼기", "price_delta_krw": 2000 } ] },
+    { "id": "r-bibim", "name": "비빔밥", "price_krw": 9500, "description": "나물과 고추장을 넣고 비비는 밥",
+      "options": [ { "id": "r-bibim.egg", "name": "계란 프라이 추가", "price_delta_krw": 1000 } ] },
+    { "id": "r-cola", "name": "콜라", "price_krw": 2000, "description": "캔 콜라 한 개", "options": [] }
+  ],
+  "order": { "lines": [
+    { "item_id": "r-kimchi", "option_ids": ["r-kimchi.rice"], "qty": 2 },
+    { "item_id": "r-cola", "option_ids": [], "qty": 2 }
+  ] },
+  "constraints": { "min_font_px": 14, "time_limit_sec": 90 }
+}

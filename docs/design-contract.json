@@ -1,0 +1,528 @@
+{
+ "schema_id": "litfamily.design-contract/v1beta2",
+ "contract_id": "contract:kiosk-qr-simulator-v1",
+ "source_hash": "376771161e841abe1068688bbbe8bf41712f2ace5ac7c99e4bf80a20ab1efc61",
+ "lane": "new-build",
+ "intent": {
+  "audiences": [
+   "공모전 투표자와 심사위원",
+   "키오스크 앞에서 막히는 고령자와 정보를 빠르게 받아들이기 어려운 사람"
+  ],
+  "tasks": [
+   "첫 화면에서 5초 안에 '키오스크가 어려운 사람이 QR로 내 방식 화면을 받는다'를 이해한다",
+   "내 방식(큰 글씨, 쉬운 말, 큰 버튼)과 업종을 바꿔 변환 전후를 비교한다",
+   "AI가 가격이나 메뉴를 바꿔도 확인 장치가 막는 것을 직접 눌러 본다"
+  ],
+  "qualities": [
+   "첫 화면 제목이 누구의 어떤 어려움을 푸는지 말한다",
+   "변환 전 키오스크와 변환 후 휴대폰이 함께 보인다",
+   "키보드와 터치로 모두 쓸 수 있다",
+   "개발자용 기록은 접어 두고 필요할 때만 펼친다"
+  ],
+  "constraints": [
+   "정적 사이트이며 서버가 없다",
+   "방문자 키는 메모리에만 둔다",
+   "모든 데이터는 합성 값이다"
+  ],
+  "non_goals": [
+   "실제 결제와 접수 연동",
+   "장애 유형 추정이나 진단",
+   "사용자 효과 측정"
+  ]
+ },
+ "direction": {
+  "name": "필드 노트와 픽셀 신호",
+  "principles": [
+   "작업 화면이 첫 화면이며 픽셀 그림은 작은 포인트로만 쓴다",
+   "변환 전 키오스크는 작고 빽빽하게, 변환 후 휴대폰은 크고 한 가지씩 보인다",
+   "금액과 원본 이름은 항상 같은 모양으로 보인다",
+   "상태 변화는 모션 없이도 이해된다"
+  ],
+  "token_strategy": "create",
+  "voice": "짧고 담백한 존댓말"
+ },
+ "inventory": {
+  "routes": [
+   {
+    "id": "route:main",
+    "path": "/",
+    "primary": true,
+    "auth_required": false
+   }
+  ],
+  "regions": [
+   {
+    "id": "region:hero",
+    "route_id": "route:main",
+    "purpose": "대상과 해결을 한 줄로 말하고 3단계로 안내한다"
+   },
+   {
+    "id": "region:kiosk",
+    "route_id": "route:main",
+    "purpose": "변환 전 키오스크 화면, 어려운 점 표시, QR을 보여 준다"
+   },
+   {
+    "id": "region:controls",
+    "route_id": "route:main",
+    "purpose": "내 방식(사람의 말로 된 카드 3개)과 업종을 고른다"
+   },
+   {
+    "id": "region:phone",
+    "route_id": "route:main",
+    "purpose": "변환 후 휴대폰 화면을 보여 준다"
+   },
+   {
+    "id": "region:safe",
+    "route_id": "route:main",
+    "purpose": "AI가 가격을 바꾸면 막힌다는 것을 눌러 보게 한다"
+   },
+   {
+    "id": "region:dev",
+    "route_id": "route:main",
+    "purpose": "접어 둔 심사용 영역: 변환 방식, 확인 기록, 방문자 키"
+   }
+  ],
+  "components": [
+   {
+    "id": "component:hero-steps",
+    "region_id": "region:hero",
+    "role": "제목, 한 줄 설명, 3단계 안내"
+   },
+   {
+    "id": "component:pains",
+    "region_id": "region:kiosk",
+    "role": "키오스크의 어려운 점 표시"
+   },
+   {
+    "id": "component:pick-spec",
+    "region_id": "region:controls",
+    "role": "업종 선택 라디오"
+   },
+   {
+    "id": "component:pick-profile",
+    "region_id": "region:controls",
+    "role": "내 방식 선택 카드(사람의 말)"
+   },
+   {
+    "id": "component:pick-mode",
+    "region_id": "region:dev",
+    "role": "변환 방식 선택 라디오"
+   },
+   {
+    "id": "component:kiosk-screen",
+    "region_id": "region:kiosk",
+    "role": "변환 전 화면 모형"
+   },
+   {
+    "id": "component:qr-code",
+    "region_id": "region:kiosk",
+    "role": "기능 코드만 담은 QR"
+   },
+   {
+    "id": "component:scan-button",
+    "region_id": "region:kiosk",
+    "role": "QR 찍어 보기 시연 단추"
+   },
+   {
+    "id": "component:phone-page",
+    "region_id": "region:phone",
+    "role": "변환 후 단계 화면"
+   },
+   {
+    "id": "component:phone-nav",
+    "region_id": "region:phone",
+    "role": "이전, 다음, 직원 부르기"
+   },
+   {
+    "id": "component:log-panel",
+    "region_id": "region:dev",
+    "role": "확인 장치 판정과 규칙별 결과"
+   },
+   {
+    "id": "component:tamper-buttons",
+    "region_id": "region:safe",
+    "role": "망가뜨린 출력 시험 단추"
+   },
+   {
+    "id": "component:key-form",
+    "region_id": "region:dev",
+    "role": "공급자, 모델, 키 입력"
+   },
+   {
+    "id": "component:voice-button",
+    "region_id": "region:phone",
+    "role": "소리로 듣기(미리 녹음한 합성 음성, 없으면 브라우저 음성)"
+   }
+  ],
+  "interactions": [
+   {
+    "id": "interaction:pick-option",
+    "route_id": "route:main",
+    "critical": true,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:scan",
+    "route_id": "route:main",
+    "critical": true,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:phone-step",
+    "route_id": "route:main",
+    "critical": true,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:staff-call",
+    "route_id": "route:main",
+    "critical": true,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:tamper-test",
+    "route_id": "route:main",
+    "critical": false,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:key-submit",
+    "route_id": "route:main",
+    "critical": false,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:key-clear",
+    "route_id": "route:main",
+    "critical": false,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   },
+   {
+    "id": "interaction:voice",
+    "route_id": "route:main",
+    "critical": false,
+    "input_modes": [
+     "keyboard",
+     "pointer",
+     "touch"
+    ]
+   }
+  ],
+  "states": [
+   {
+    "id": "state:idle",
+    "route_id": "route:main",
+    "kind": "empty"
+   },
+   {
+    "id": "state:converting",
+    "route_id": "route:main",
+    "kind": "loading"
+   },
+   {
+    "id": "state:ai-adopted",
+    "route_id": "route:main",
+    "kind": "success"
+   },
+   {
+    "id": "state:fallback",
+    "route_id": "route:main",
+    "kind": "error"
+   },
+   {
+    "id": "state:key-needed",
+    "route_id": "route:main",
+    "kind": "permission"
+   }
+  ],
+  "viewports": [
+   {
+    "id": "viewport:phone-small",
+    "category": "compact",
+    "width_px": 320,
+    "height_px": 640
+   },
+   {
+    "id": "viewport:phone",
+    "category": "compact",
+    "width_px": 390,
+    "height_px": 844
+   },
+   {
+    "id": "viewport:tablet",
+    "category": "medium",
+    "width_px": 768,
+    "height_px": 1024
+   },
+   {
+    "id": "viewport:desktop",
+    "category": "expanded",
+    "width_px": 1440,
+    "height_px": 900
+   }
+  ],
+  "references": [],
+  "authenticated_surfaces": []
+ },
+ "accessibility": {
+  "target": "WCAG 2.2 AA",
+  "keyboard": true,
+  "screen_reader": true,
+  "reduced_motion": true,
+  "forced_colors": true,
+  "zoom_percent": 200
+ },
+ "localization": {
+  "locales": [
+   "ko"
+  ],
+  "text_expansion_percent": 30,
+  "cjk_line_break_review": true,
+  "font_fallback_review": true,
+  "ime_review": false,
+  "rtl_review": false
+ },
+ "performance": {
+  "lcp_ms": 2500,
+  "cls": 0.1,
+  "inp_ms": 200,
+  "initial_js_kb": 200,
+  "initial_css_kb": 40
+ },
+ "evidence_policy": {
+  "independent_review_required": true,
+  "required_channels": [
+   "tests",
+   "browser",
+   "keyboard",
+   "accessibility-tree"
+  ],
+  "cleanup_required": true
+ },
+ "omissions": [
+  {
+   "id": "omission:camera-scan",
+   "reason": "카메라 QR 스캔은 Tier 2이며 일정에 따라 구현하거나 자른다",
+   "owner": "에이전트"
+  }
+ ],
+ "accepted_exceptions": [],
+ "tokens": [
+  {
+   "id": "token:paper",
+   "category": "color",
+   "value": "#f5f3eb 밝은 종이색, 어두운 모드 #12191b",
+   "usage": "페이지 배경"
+  },
+  {
+   "id": "token:ink",
+   "category": "color",
+   "value": "#18272b 잉크색, 어두운 모드 #ecebe3",
+   "usage": "본문 글자"
+  },
+  {
+   "id": "token:accent",
+   "category": "color",
+   "value": "#a63d22 주황 붉은색, 어두운 모드 #ff9a7a",
+   "usage": "주요 단추와 강조"
+  },
+  {
+   "id": "token:phone-high-contrast",
+   "category": "color",
+   "value": "검정 바탕, 흰 글자, 노랑 단추(대비 7 대 1 이상)",
+   "usage": "고대비 프로필의 휴대폰 화면"
+  },
+  {
+   "id": "token:type-pretendard",
+   "category": "typography",
+   "value": "Pretendard 400, 600, 800",
+   "usage": "모든 글자"
+  },
+  {
+   "id": "token:space",
+   "category": "spacing",
+   "value": "8px 단위, 세부 4px",
+   "usage": "여백과 간격"
+  },
+  {
+   "id": "token:radius",
+   "category": "radius",
+   "value": "10px에서 28px",
+   "usage": "단추, 패널, 휴대폰 틀"
+  }
+ ],
+ "component_behaviors": [
+  {
+   "component_id": "component:pick-spec",
+   "state_ids": [
+    "state:idle"
+   ],
+   "interaction_ids": [
+    "interaction:pick-option"
+   ],
+   "keyboard_behavior": "화살표 키로 선택을 옮기고 선택하면 바로 변환한다"
+  },
+  {
+   "component_id": "component:scan-button",
+   "state_ids": [
+    "state:idle",
+    "state:converting"
+   ],
+   "interaction_ids": [
+    "interaction:scan"
+   ],
+   "keyboard_behavior": "Enter 또는 Space로 실행하고 변환 중에는 비활성"
+  },
+  {
+   "component_id": "component:phone-nav",
+   "state_ids": [
+    "state:ai-adopted",
+    "state:fallback"
+   ],
+   "interaction_ids": [
+    "interaction:phone-step",
+    "interaction:staff-call"
+   ],
+   "keyboard_behavior": "Tab으로 단추를 지나고 단계가 바뀌면 첫 단추로 초점이 간다"
+  },
+  {
+   "component_id": "component:key-form",
+   "state_ids": [
+    "state:key-needed"
+   ],
+   "interaction_ids": [
+    "interaction:key-submit",
+    "interaction:key-clear"
+   ],
+   "keyboard_behavior": "Enter로 제출하고 제출 즉시 입력칸을 비운다"
+  }
+ ],
+ "responsive_transformations": [
+  {
+   "route_id": "route:main",
+   "viewport_id": "viewport:phone-small",
+   "behavior": "모든 영역이 한 열로 쌓이고 가로 스크롤이 없다"
+  },
+  {
+   "route_id": "route:main",
+   "viewport_id": "viewport:phone",
+   "behavior": "히어로, 키오스크, 내 방식 선택, 휴대폰, 안전장치, 접힌 심사용 영역 순서로 쌓이고 선택 뒤 휴대폰이 화면에 들어온다"
+  },
+  {
+   "route_id": "route:main",
+   "viewport_id": "viewport:tablet",
+   "behavior": "한 열을 유지하고 휴대폰 틀은 가운데에 둔다"
+  },
+  {
+   "route_id": "route:main",
+   "viewport_id": "viewport:desktop",
+   "behavior": "왼쪽에 히어로, 키오스크, 선택, 안전장치가 쌓이고 오른쪽에서 폭 520px의 폰 틀이 따라온다"
+  }
+ ],
+ "motion": {
+  "policy": "none",
+  "reduced_motion_behavior": "움직임이 없고 상태 변화는 글자로 알려 준다",
+  "transitions": []
+ },
+ "acceptance_criteria": [
+  {
+   "id": "criterion:before-after",
+   "observable": "처음 열면 제목이 대상과 해결을 말하고, 변환 전 키오스크와 변환 후 휴대폰이 함께 보인다",
+   "verification": "browser",
+   "required": true,
+   "inventory_ids": [
+    "component:hero-steps",
+    "component:kiosk-screen",
+    "component:phone-page"
+   ]
+  },
+  {
+   "id": "criterion:nine-combos",
+   "observable": "업종 3개와 내 방식 3개의 9개 조합이 키 없이 끝까지 열린다",
+   "verification": "browser",
+   "required": true,
+   "inventory_ids": [
+    "interaction:pick-option",
+    "interaction:phone-step"
+   ]
+  },
+  {
+   "id": "criterion:keyboard",
+   "observable": "모든 선택과 단추를 키보드만으로 쓸 수 있고 초점 표시가 보인다",
+   "verification": "keyboard",
+   "required": true,
+   "inventory_ids": [
+    "interaction:pick-option",
+    "interaction:scan",
+    "interaction:staff-call"
+   ]
+  },
+  {
+   "id": "criterion:validator-log",
+   "observable": "검증기 기록이 채택 여부와 규칙별 통과 또는 막힘을 보여 준다",
+   "verification": "accessibility-tree",
+   "required": true,
+   "inventory_ids": [
+    "component:log-panel"
+   ]
+  },
+  {
+   "id": "criterion:tamper",
+   "observable": "망가뜨린 출력 시험 단추가 검증기의 거부 사유를 보여 준다",
+   "verification": "browser",
+   "required": true,
+   "inventory_ids": [
+    "component:tamper-buttons",
+    "interaction:tamper-test"
+   ]
+  },
+  {
+   "id": "criterion:key-handling",
+   "observable": "키를 제출하면 입력칸이 비워지고 저장소와 주소에 키가 남지 않는다",
+   "verification": "tests",
+   "required": true,
+   "inventory_ids": [
+    "component:key-form",
+    "interaction:key-submit"
+   ]
+  },
+  {
+   "id": "criterion:voice",
+   "observable": "세 카드 모두에서 소리로 듣기가 같은 목소리로 화면 내용을 읽고 단추 문구와 진행 표시는 읽지 않는다",
+   "verification": "tests",
+   "required": true,
+   "inventory_ids": [
+    "component:voice-button",
+    "interaction:voice"
+   ]
+  }
+ ]
+}

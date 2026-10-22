@@ -1,0 +1,79 @@
+{
+  "schema": "kiosk-qr.providers/v1",
+  "checked_at": "2026-10-20",
+  "note": "cors는 키 없이 OPTIONS 사전 요청으로 확인한 값이다. 실제 POST 호출과 한국어 품질은 키 없이 확인할 수 없어 UNVERIFIED다. 모델 이름은 입력란에서 바꿀 수 있다.",
+  "providers": [
+    {
+      "id": "gemini",
+      "label": "Google Gemini (AI Studio 키)",
+      "origin": "https://generativelanguage.googleapis.com",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+      "auth": { "header": "x-goog-api-key" },
+      "format": "gemini-generate-content",
+      "default_model": "gemini-2.5-flash",
+      "cors": { "status": "VERIFIED", "how": "OPTIONS 사전 요청 200, allow-origin이 요청 Origin을 그대로 돌려줌, allow-headers에 x-goog-api-key 포함", "date": "2026-10-20" },
+      "json_output": { "status": "UNVERIFIED", "plan": "프롬프트로 JSON만 요구하고 응답에서 JSON 추출, 스키마·불변 검증기가 최종 판정" },
+      "free_tier": { "status": "UNVERIFIED", "note": "공식 속도 한도 문서는 수치 대신 AI Studio 화면을 가리킨다. 제3자 수치는 서로 다르다(10 RPM/250 RPD 대 15 RPM/1,500 RPD)." }
+    },
+    {
+      "id": "groq",
+      "label": "Groq",
+      "origin": "https://api.groq.com",
+      "endpoint": "https://api.groq.com/openai/v1/chat/completions",
+      "auth": { "header": "Authorization", "scheme": "Bearer" },
+      "format": "openai-chat",
+      "default_model": "openai/gpt-oss-120b",
+      "cors": { "status": "VERIFIED", "how": "OPTIONS 사전 요청 204, allow-origin *, allow-headers에 authorization·content-type", "date": "2026-10-20" },
+      "json_output": { "status": "VERIFIED", "how": "공식 문서: response_format json_object는 모든 모델, json_schema strict는 gpt-oss-20b/120b 등", "source": "https://console.groq.com/docs/structured-outputs" },
+      "free_tier": { "status": "UNVERIFIED", "note": "개발자 플랜 기준 gpt-oss-120b는 30 RPM, 1K RPD, 8K TPM. 무료 플랜 수치는 계정 화면에서만 보인다.", "source": "https://console.groq.com/docs/rate-limits" }
+    },
+    {
+      "id": "openrouter",
+      "label": "OpenRouter (:free 모델)",
+      "origin": "https://openrouter.ai",
+      "endpoint": "https://openrouter.ai/api/v1/chat/completions",
+      "auth": { "header": "Authorization", "scheme": "Bearer" },
+      "format": "openai-chat",
+      "default_model": "",
+      "cors": { "status": "VERIFIED", "how": "OPTIONS 사전 요청 204, allow-origin *, allow-headers에 Authorization·Content-Type", "date": "2026-10-20" },
+      "json_output": { "status": "VERIFIED", "how": "공식 문서: response_format json_schema는 모델·엔드포인트에 따라 다름. 의존하지 않고 프롬프트 방식 사용", "source": "https://openrouter.ai/docs/guides/features/structured-outputs" },
+      "free_tier": { "status": "VERIFIED", "note": ":free 모델은 분당 20회, 일 50회(구매 크레딧 10 미만) 또는 1,000회(이상)", "source": "https://openrouter.ai/docs/api-reference/limits" }
+    },
+    {
+      "id": "anthropic",
+      "label": "Anthropic (Claude)",
+      "origin": "https://api.anthropic.com",
+      "endpoint": "https://api.anthropic.com/v1/messages",
+      "auth": { "header": "x-api-key", "extra_headers": { "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } },
+      "format": "anthropic-messages",
+      "default_model": "claude-sonnet-5-5",
+      "cors": { "status": "VERIFIED", "how": "OPTIONS 사전 요청 200, allow-origin *, allow-headers가 x-api-key·anthropic-version·anthropic-dangerous-direct-browser-access를 허용", "date": "2026-10-20" },
+      "json_output": { "status": "UNVERIFIED", "plan": "프롬프트로 JSON만 요구하고 응답에서 JSON 추출" },
+      "free_tier": { "status": "UNVERIFIED", "note": "유료 키로 가정. 무료 한도 조사하지 않음" }
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "origin": "https://api.openai.com",
+      "endpoint": "https://api.openai.com/v1/chat/completions",
+      "auth": { "header": "Authorization", "scheme": "Bearer" },
+      "format": "openai-chat",
+      "default_model": "",
+      "cors": { "status": "VERIFIED", "how": "OPTIONS 사전 요청 200, allow-origin이 요청 Origin을 그대로 돌려줌, authorization·content-type 허용", "date": "2026-10-20" },
+      "json_output": { "status": "UNVERIFIED", "plan": "프롬프트로 JSON만 요구하고 응답에서 JSON 추출" },
+      "free_tier": { "status": "UNVERIFIED", "note": "유료 키로 가정. 무료 한도 조사하지 않음" }
+    }
+  ],
+  "csp_connect_src": [
+    "https://generativelanguage.googleapis.com",
+    "https://api.groq.com",
+    "https://openrouter.ai",
+    "https://api.anthropic.com",
+    "https://api.openai.com"
+  ],
+  "excluded": [
+    { "what": "OAuth 로그인", "why": "OAuth 클라이언트 등록이 새 외부 계정 생성에 해당한다(비목표). API 키 입력만 지원한다." },
+    { "what": "키 없이 쓰는 무료 공급자", "why": "확인한 5곳 모두 키가 필요하다. 체험 모드(미리 만든 실제 모델 출력)가 키 없는 경로다." },
+    { "what": "브라우저 온디바이스 모델", "why": "문서 조사만 했고 실측하지 않았다. 용량이 1~2GB 단위이고 한국어 JSON 품질 근거가 없어 채택하지 않는다(Tier 3 유지)." }
+  ]
+}

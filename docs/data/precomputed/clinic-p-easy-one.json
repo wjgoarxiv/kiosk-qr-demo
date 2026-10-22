@@ -1,0 +1,165 @@
+{
+ "raw": {
+  "screen_id": "clinic",
+  "profile_id": "p-easy-one",
+  "style": {
+   "text_scale": 1.5,
+   "contrast": "normal",
+   "touch_target_px": 44,
+   "scroll_hint": false
+  },
+  "items": [
+   {
+    "id": "h-internal",
+    "label": "내과 진료 접수",
+    "hint": "내과 의사를 만나려면 골라 주세요.",
+    "price_krw": 3000,
+    "options": [
+     {
+      "id": "h-internal.cert",
+      "label": "진료확인서 함께 받기",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "h-ortho",
+    "label": "정형외과 진료 접수",
+    "hint": "뼈나 관절이 아프면 골라 주세요.",
+    "price_krw": 3500,
+    "options": [
+     {
+      "id": "h-ortho.cert",
+      "label": "진료확인서 함께 받기",
+      "price_delta_krw": 1000
+     }
+    ]
+   },
+   {
+    "id": "h-ent",
+    "label": "이비인후과 진료 접수",
+    "hint": "귀나 코, 목이 아프면 골라 주세요.",
+    "price_krw": 3000,
+    "options": []
+   },
+   {
+    "id": "h-cert",
+    "label": "진료확인서만 발급",
+    "hint": "진료 없이 진료확인서를 받아요.",
+    "price_krw": 1000,
+    "options": []
+   }
+  ],
+  "pages": [
+   {
+    "id": "select-1",
+    "kind": "select",
+    "title": "진료 고르기",
+    "lead": "원하는 진료인지 봐 주세요.",
+    "item_ids": [
+     "h-internal"
+    ]
+   },
+   {
+    "id": "options-internal",
+    "kind": "options",
+    "title": "확인서 고르기",
+    "lead": "진료확인서도 받을지 골라 주세요.",
+    "item_ids": [
+     "h-internal"
+    ]
+   },
+   {
+    "id": "select-2",
+    "kind": "select",
+    "title": "진료 고르기",
+    "lead": "원하는 진료인지 봐 주세요.",
+    "item_ids": [
+     "h-ortho"
+    ]
+   },
+   {
+    "id": "options-ortho",
+    "kind": "options",
+    "title": "확인서 고르기",
+    "lead": "진료확인서도 받을지 골라 주세요.",
+    "item_ids": [
+     "h-ortho"
+    ]
+   },
+   {
+    "id": "select-3",
+    "kind": "select",
+    "title": "진료 고르기",
+    "lead": "원하는 진료인지 봐 주세요.",
+    "item_ids": [
+     "h-ent"
+    ]
+   },
+   {
+    "id": "select-4",
+    "kind": "select",
+    "title": "확인서 받기",
+    "lead": "진료확인서가 필요하면 골라 주세요.",
+    "item_ids": [
+     "h-cert"
+    ]
+   },
+   {
+    "id": "cart-1",
+    "kind": "cart",
+    "title": "고른 내용 보기",
+    "lead": "고른 내용이 맞는지 봐 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "confirm-1",
+    "kind": "confirm",
+    "title": "원래 화면과 비교",
+    "lead": "원래 화면과 같은지 봐 주세요.",
+    "item_ids": []
+   },
+   {
+    "id": "pay-1",
+    "kind": "pay",
+    "title": "결제하기",
+    "lead": "결제를 연습하는 화면이에요.",
+    "item_ids": []
+   }
+  ],
+  "cart": {
+   "lines": [
+    {
+     "item_id": "h-internal",
+     "option_ids": [
+      "h-internal.cert"
+     ],
+     "qty": 1,
+     "line_total_krw": 4000
+    }
+   ],
+   "total_krw": 4000
+  },
+  "confirm": {
+   "lines": [
+    {
+     "item_id": "h-internal",
+     "original_name": "내과 진료 접수",
+     "amount_krw": 4000
+    }
+   ],
+   "total_krw": 4000,
+   "original_check_required": true
+  },
+  "staff_call": {
+   "label": "직원 부르기"
+  }
+ },
+ "meta": {
+  "model": "gpt-6.1-sol",
+  "date": "2026-10-20",
+  "prompt_sha256": "840cf35b961160e7c62164cb2c9eca7a997e14890171116e596f883488f5621a",
+  "retries": 0,
+  "verdict": "validator-pass"
+ }
+}

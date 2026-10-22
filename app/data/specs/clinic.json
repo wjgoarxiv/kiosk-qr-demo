@@ -1,0 +1,17 @@
+{
+  "id": "clinic",
+  "industry": "clinic",
+  "title": "모의 병원 접수",
+  "items": [
+    { "id": "h-internal", "name": "내과 진료 접수", "price_krw": 3000, "description": "내과 의사를 만나기 위한 접수. 합성 금액입니다.",
+      "options": [ { "id": "h-internal.cert", "name": "진료확인서 함께 받기", "price_delta_krw": 1000 } ] },
+    { "id": "h-ortho", "name": "정형외과 진료 접수", "price_krw": 3500, "description": "뼈와 관절 진료를 위한 접수. 합성 금액입니다.",
+      "options": [ { "id": "h-ortho.cert", "name": "진료확인서 함께 받기", "price_delta_krw": 1000 } ] },
+    { "id": "h-ent", "name": "이비인후과 진료 접수", "price_krw": 3000, "description": "귀, 코, 목 진료를 위한 접수. 합성 금액입니다.", "options": [] },
+    { "id": "h-cert", "name": "진료확인서만 발급", "price_krw": 1000, "description": "진료 없이 확인서만 받는 접수. 합성 금액입니다.", "options": [] }
+  ],
+  "order": { "lines": [
+    { "item_id": "h-internal", "option_ids": ["h-internal.cert"], "qty": 1 }
+  ] },
+  "constraints": { "min_font_px": 14, "time_limit_sec": 120 }
+}

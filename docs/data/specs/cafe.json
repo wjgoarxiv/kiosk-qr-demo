@@ -1,0 +1,21 @@
+{
+  "id": "cafe",
+  "industry": "cafe",
+  "title": "다온 카페 주문",
+  "items": [
+    { "id": "c-americano", "name": "아메리카노", "price_krw": 4500, "description": "에스프레소에 물을 더한 기본 커피",
+      "options": [ { "id": "c-americano.size-l", "name": "라지 사이즈", "price_delta_krw": 500 }, { "id": "c-americano.shot", "name": "샷 추가", "price_delta_krw": 500 } ] },
+    { "id": "c-latte", "name": "카페라떼", "price_krw": 5000, "description": "에스프레소에 따뜻한 우유를 더한 커피",
+      "options": [ { "id": "c-latte.oat", "name": "오트밀크로 변경", "price_delta_krw": 700 }, { "id": "c-latte.size-l", "name": "라지 사이즈", "price_delta_krw": 500 } ] },
+    { "id": "c-yuja", "name": "유자차", "price_krw": 5500, "description": "유자청을 따뜻한 물에 탄 차",
+      "options": [ { "id": "c-yuja.iced", "name": "차갑게", "price_delta_krw": 0 } ] },
+    { "id": "c-scone", "name": "플레인 스콘", "price_krw": 3800, "description": "버터 향이 나는 구움과자",
+      "options": [ { "id": "c-scone.warm", "name": "데워서", "price_delta_krw": 0 } ] },
+    { "id": "c-cake", "name": "조각 케이크", "price_krw": 6500, "description": "오늘의 케이크 한 조각", "options": [] }
+  ],
+  "order": { "lines": [
+    { "item_id": "c-americano", "option_ids": ["c-americano.size-l"], "qty": 1 },
+    { "item_id": "c-scone", "option_ids": ["c-scone.warm"], "qty": 2 }
+  ] },
+  "constraints": { "min_font_px": 14, "time_limit_sec": 60 }
+}
