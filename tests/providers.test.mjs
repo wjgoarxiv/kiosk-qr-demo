@@ -178,13 +178,14 @@ test("모델 이름의 경로 조작 문자열을 거부한다", async () => {
   const ok = createByokProvider({ entry: entry("openrouter"), apiKey: KEY, model: "meta-llama/llama-3.3-70b-instruct:free", fetchImpl: fakeFetch(() => shapes.openrouter(okJson)) });
   assert.equal((await ok.adapt(spec, profile, {})).meta.provider, "openrouter");
 });
-test("OpenAI 요청에는 temperature를 보내지 않고 Anthropic 최대 출력은 넉넉하다", async () => {
+test("OpenAI와 Anthropic 요청에는 temperature를 보내지 않고 Anthropic 최대 출력은 넉넉하다", async () => {
   const fo = fakeFetch(() => shapes.openai(okJson));
   await createByokProvider({ entry: entry("openai"), apiKey: KEY, model: "m", fetchImpl: fo }).adapt(spec, profile, {});
   assert.ok(!("temperature" in JSON.parse(fo.calls[0].init.body)));
   const fa = fakeFetch(() => shapes.anthropic(okJson));
   await createByokProvider({ entry: entry("anthropic"), apiKey: KEY, model: "m", fetchImpl: fa }).adapt(spec, profile, {});
   assert.ok(JSON.parse(fa.calls[0].init.body).max_tokens >= 8192);
+  assert.ok(!("temperature" in JSON.parse(fa.calls[0].init.body)));
 });
 test("키 비노출: 모든 공급자의 키 오류 되돌림에서도 키가 새지 않는다", async () => {
   const { adaptScreen } = await import("../app/js/adapt.js");

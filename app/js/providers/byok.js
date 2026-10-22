@@ -20,7 +20,7 @@ function requestFor(entry, model, apiKey, { system, user }) {
     return {
       url: entry.endpoint,
       headers: { ...json, "x-api-key": apiKey, ...entry.auth.extra_headers },
-      body: { model, max_tokens: 8192, temperature, system, messages: [{ role: "user", content: user }] },
+      body: { model, max_tokens: 8192, system, messages: [{ role: "user", content: user }] },
     };
   }
   const body = { model, ...(temperature === undefined ? {} : { temperature }), messages: [{ role: "system", content: system }, { role: "user", content: user }] };
